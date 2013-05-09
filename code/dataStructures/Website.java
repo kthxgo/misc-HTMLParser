@@ -1,5 +1,6 @@
 package dataStructures;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
 
@@ -21,7 +22,7 @@ public class Website {
 	// keywords - such as golf, schoolsystem, dounut
 	private HashSet<String>				keyWords;
 	// url refeering to this Website
-	private final URL					url;
+//	private final URL					url;
 	// The Website in raw String Format
 	private String						raw;
 	// Timestamp of the Website readout
@@ -29,8 +30,8 @@ public class Website {
 	// Dom representation of this site
 	private Document					domStructure;
 
-	public Website(URL url) {
-		this.url = url;
+	public Website() throws MalformedURLException {
+//		url = new URL("");
 		metaInformations = new HashSet<MetaInformation<?>>();
 		keyWords = new HashSet<String>();
 		raw = null;
@@ -42,9 +43,9 @@ public class Website {
 		this.timeStamp = System.currentTimeMillis();
 	}
 
-	public URL getUrl() {
-		return url;
-	}
+//	public URL getUrl() {
+//		return url;
+//	}
 
 	public long getTimeStamp() {
 		return timeStamp;
