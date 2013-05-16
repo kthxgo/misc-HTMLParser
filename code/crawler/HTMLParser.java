@@ -19,6 +19,8 @@ public class HTMLParser {
 	}
 	
 	public void parse(Website website) {
+		System.err.println("START PARSING ...");
+		
 		html = website.getSiteText();
 		int first, last;
 		String temp;
@@ -65,6 +67,9 @@ public class HTMLParser {
 		first = html.indexOf("<body>") + 6;
 		last = html.indexOf("</body>");
 		temp = html.substring(first, last);
+		if(first>0 && last>0) {
+			System.out.println("found <body> and </body>");
+		}
 		Element bodyElement = new Element("body");
 		root.addContent(bodyElement);
 		body = root.getChild("body", root.getNamespace());
@@ -74,10 +79,14 @@ public class HTMLParser {
 		
 		website.setDomStructure(domStructure);
 		
+		System.err.println("PARSING FINISHED!");
 	}
 	
 	
-	private String temp;
+	
+	
+	
+//	private String temp;
 	
 	private Element parseNext(Element current, String temp) {
 		int first, next;
@@ -147,6 +156,10 @@ public class HTMLParser {
 	}
 	
 	
+	
+	
+	
+	
 	public void test(Website website) {
 		
 		Document domStructure;
@@ -209,5 +222,8 @@ public class HTMLParser {
 		website.setDomStructure(domStructure);
 		
 	}
+	
+	
+	
 	
 }

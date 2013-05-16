@@ -21,7 +21,7 @@ public class Test {
 		Website website = new Website();
 		
 //		</br><div>Test-Div</div><div>noch einer</div>
-		String text = "<html><head><title>Test-Seite</title></head><body>Test<table>T4b3ll3</table><div>Test-Div</div>secnod<div>noch einer</div></body></html>";
+		String text = "<html><head><title>Test-Seite</title></head><body>Test<table>This is a table</table><div>Test-Div in a <div>Test-Div</div></div>secnod<div><b>noch einer</b></div></body></html>";
 		website.setSiteText(text);
 		
 		parser.parse(website);
