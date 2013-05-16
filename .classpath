@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="code"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/jeff/Dropbox/workspace/ext_jars/jdom-2.0.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/jre7/ext/jdom-2.0.5/jdom-2.0.5.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

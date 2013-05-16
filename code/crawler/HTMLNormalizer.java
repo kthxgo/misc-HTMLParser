@@ -2,6 +2,7 @@ package crawler;
 
 public class HTMLNormalizer {
 
+	
 	public String normalize(String text) {
 		String newText = "";
 		String temp;
