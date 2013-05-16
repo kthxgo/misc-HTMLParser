@@ -9,7 +9,7 @@ public class Test2 {
 		HTMLParser2 parser = new HTMLParser2();
 		HTMLNormalizer norma = new HTMLNormalizer();
 		
-		String code = "< html >< head><title>test is nämlich > als des andere halt</title und so shit halt ></head>< / html nub>";
+		String code = "< html >< head><title>test is naemlich > als des andere halt</title und so shit halt ></head>< / html nub>";
 		
 		System.out.println(norma.normalize(code));
 	}

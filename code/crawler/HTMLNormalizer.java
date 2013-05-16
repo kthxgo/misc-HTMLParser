@@ -14,7 +14,10 @@ public class HTMLNormalizer {
 			posNextOpener = text.indexOf("<", posOpener+1);
 			posCloser = text.indexOf(">");
 			
-			if(posNextOpener>posCloser || posNextOpener == -1) {
+			if (posOpener > posCloser) {
+				newText += text.substring(0, posOpener);
+				text = text.substring(posOpener);
+			} else if(posNextOpener>posCloser || posNextOpener == -1) {
 				if(posOpener != 0) {
 					newText += text.substring(0, posOpener);
 				}
