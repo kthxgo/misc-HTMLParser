@@ -77,7 +77,9 @@ public class HTMLParser2 {
 		bodyElement = rootElement.getChild("body", rootElement.getNamespace());
 //		current = body;
 		//starte Rekursion
-		parseNext(bodyElement, temp);
+		tempTextHelper = htmlText;
+		String firstTag = getNextTag();
+		parseNext(bodyElement, temp, firstTag);
 		
 		
 		
@@ -86,61 +88,79 @@ public class HTMLParser2 {
 		return domStructure;
 		
 	}
+	
+	
+	
 
-	private void parseNext(Element currentElement, String tempText) {
+	private Element parseNext(Element currentElement, String tempText, String tag) {
 		int		firstLocation;
 		int		nextLocation;
-		int		helper1;
-		int		helper2;
+		int		posOpener;
 		
 		String	newTempText;
 		String	tempTextHelper;
 		
+		int tagPosition = currentPosition;
+		String nextTag = getNextTag();
 		
-		while(!tempText.equals("")) {
-			//search for a tag
-			tempTextHelper = tempText;
-			helper1 = tempTextHelper.indexOf("<");
-			helper2 = tempTextHelper.indexOf(">");
+		switch(tag) {
+		case "<div>": 
+			firstLocation = tempText.indexOf("<div>");
+			if(firstLocation>0) {
+				String front = tempText.substring(0, firstLocation);
+				Element element = new Element("text");
+				Attribute att = new Attribute("value", front);
+				element.setAttribute(att);
+				currentElement.addContent(element);
+			}
+			
+//			Element divElement = new Element("div");
+//			
+//			if(!nextTag.equals("</div>")) {
+//				Element newCurrent = divElement;
+//			}
 			
 			
+			newTempText = tempText.substring(firstLocation + 5, tempText.indexOf("</div>"));
+			Element newCurrent = new Element("div");
+			currentElement.addContent(parseNext(newCurrent, newTempText, nextTag));
 			
+			tempText = tempText.substring(tempText.indexOf("</div>") + 6);
 			
+			break;
+		case "table": break;
+		case "": break;
+		
 		}
-		
-		
-		
+		return currentElement;
 	}
 	
-	private String optimizeTag(String tag) {
-		int		help;
-		String	temp;
-		
-		int tagStartPosition = 1;
-		while(tag.charAt(tagStartPosition)==' ' || tag.charAt(tagStartPosition)=='/') {
-			tagStartPosition++;
-		}
-		temp = tag.substring(tagStartPosition);
-		temp = temp.substring(0, temp.indexOf(" "));
-		if(tag.substring(0, tagStartPosition).indexOf("/")>=0) {
-			temp = "</" + temp + ">";
-		} else {
-			temp = "<" + temp + ">";
-		}
+	
+	private String tempTextHelper;
+	private int currentPosition = -1;
+	
+	private String getNextTag() {
+		int		posOpener;
+		String	result = "";
 		
 		
-		return temp;
+		//search for a tag
+		//+1 -> not the same tag again
+		posOpener = tempTextHelper.indexOf("<", currentPosition+1);
+		
+		if(tempTextHelper.indexOf("<div>", posOpener)==posOpener) {
+			result = "<div>";
+		} else if(tempTextHelper.indexOf("</div>", posOpener)==posOpener) {
+			result = "</div>";
+		} else if(tempTextHelper.indexOf("<table>", posOpener)==posOpener) {
+			result = "<table>";
+		} else if(tempTextHelper.indexOf("</table>", posOpener)==posOpener) {
+			result = "</table>";
+		} 
+
+		currentPosition = posOpener;
+		System.out.println(result);
+		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
