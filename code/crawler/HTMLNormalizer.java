@@ -9,6 +9,11 @@ public class HTMLNormalizer {
 		int posOpener;
 		int posNextOpener;
 		int posCloser;
+		int imageCounter = 0;
+		
+//		text = text.replace('\n', '\0');
+//		text = text.replace('\t', '\0');
+//		text = text.replace('\r', '\0');
 		
 		while(text.indexOf("<")>=0) {
 			posOpener = text.indexOf("<");
@@ -24,7 +29,27 @@ public class HTMLNormalizer {
 				}
 				temp = text.substring(posOpener, posCloser + 1);
 				temp = optimizeTag(temp);
-				newText += temp;
+				
+				if(temp.equals("<meta>") || temp.equals("<link>") || temp.equals("<a>") || temp.equals("</a>") || temp.equals("<p>") || temp.equals("</p>")
+						|| temp.equals("<span>") || temp.equals("</span>") || temp.equals("<form>") || temp.equals("</form>") || temp.equals("<input>")
+						|| temp.equals("<b>") || temp.equals("</b>") || temp.equals("<u>") || temp.equals("</u>") || temp.equals("<i>") || temp.equals("</i>")
+						|| temp.equals("<iframe>") || temp.equals("</iframe>")) {
+					
+				} else if (temp.equals("<img>")) {
+					newText += "[img_" + imageCounter + "]";
+					imageCounter++;
+				} else if (temp.equals("<br>") || temp.equals("</br>")) {
+					
+				} else if (temp.equals("<script>")) {
+					posCloser = text.indexOf("</script>")+8;
+				}
+				
+				
+				else {
+					newText += temp;
+				}
+				
+				
 				text = text.substring(posCloser+1);
 			} else {
 				newText += text.substring(0, posNextOpener);
@@ -56,6 +81,8 @@ public class HTMLNormalizer {
 		} else {
 			temp = "<" + temp + ">";
 		}
+		
+		
 		
 		return temp;
 	}

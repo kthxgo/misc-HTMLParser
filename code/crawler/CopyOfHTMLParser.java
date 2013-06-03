@@ -12,7 +12,7 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.output.XMLOutputter;
 
-public class HTMLParser {
+public class CopyOfHTMLParser {
 
 	private List<String> tags = new ArrayList<String>();
 	private int position;
@@ -122,7 +122,7 @@ public class HTMLParser {
 	
 	
 	//returns the position in the whole html-Text to continue parsing on same level
-	private String parseNext(Element currentElement, String tempText) {
+	private int parseNext(Element currentElement, String tempText) {
 		if(position<tags.size()) {
 			String tag = tags.get(position);
 			
@@ -165,13 +165,13 @@ public class HTMLParser {
 			}
 		}
 		
-		return "";
+		return -1;
 	}
 	
 	
 	//tagName.length()+2 to skip an opening tag
 	//tagName.length()+3 to skip an closing tag
-	private String parseFor(Element currentElement, String tag, String tagName, String tempText) {
+	private int parseFor(Element currentElement, String tag, String tagName, String tempText) {
 		
 		int		openerLocation;
 		int		closerLocation;
@@ -220,19 +220,20 @@ public class HTMLParser {
 			position++;
 			
 			newTempText = tempText.substring(closerLocation + tagName.length()+3);
-			String tmp = parseNext(currentElement, newTempText);
+			int pos = parseNext(currentElement, newTempText);
 //			return htmlText.length()-newTempText.length()-8+; //-8 because of surrounding html-tag
-			return tmp;
+			return pos + tagName.length()+3;
 		} else {
 			newTempText = tempText.substring(openerLocation + tagName.length()+2);
-			String tmp = parseNext(newElement, newTempText);
+			int pos = parseNext(newElement, newTempText);
 			
 			position++;
 			
 			// pos edited
-			tmp = parseNext(currentElement, tmp);
+			newTempText = htmlText.substring(pos);
+			pos = parseNext(currentElement, newTempText);
 			
-			return tmp;
+			return pos + tagName.length()+3;
 		}
 	}
 	
