@@ -145,7 +145,12 @@ public class Config {
 			
 			CrawlerSupervisor_MinTimeDiff(1000*60*60*14),
 			
-			Plugin_Length(5000);
+			Plugin_Length(5000),
+			
+			Ingestion_msPerDatabaseInput(0),
+			Ingestion_preferInput(1),
+			Ingestion_maxThreads(5),
+			Ingestion_compress(1);
 
 			private int	key;
 
@@ -189,7 +194,13 @@ public class Config {
 			
 			Compression_MainPath("." + File.separator + "compression" + File.separator),			
 			Plugin_Language("DE; ENG"),
-			Plugin_Domain("DE; COM");
+			Plugin_Domain("DE; COM"),
+			
+			
+			Ingestion_rootDirectory("." + File.separator + "xmlData"),
+			Ingestion_validator("." + File.separator + "Schema.xsd"),
+			Ingestion_crawlerDate("2013-5-30"), //Later set to Today
+			Ingestion_titel("myTitel"); 
 
 			private String	key;
 

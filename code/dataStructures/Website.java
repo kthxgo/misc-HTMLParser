@@ -26,7 +26,7 @@ public class Website implements Delayed{
 	// keywords - such as golf, schoolsystem, doughnut
 	private HashSet<String>				keyWords;
 	// url refeering to this Website
-	private URL					url;
+	private URL							url;
 	// The Website in raw String Format
 	private String						raw;
 	// Timestamp of the Website readout
@@ -35,6 +35,7 @@ public class Website implements Delayed{
 	private Document					domStructure;
 	//XML boolean for Priority Ordering
 	private boolean						XML;
+	private String						filePath;
 
 	private List<BufferedImage>	imgs;
 	
@@ -50,6 +51,29 @@ public class Website implements Delayed{
 		raw = null;
 		domStructure = null;
 		timeStamp = TIME_UNDEFINIED;
+	}
+
+	//Ingestion - DelayedQueue necessary Methods for "implements Delayed"
+	@Override
+	public int compareTo(Delayed A) {
+		//Cast wirklich notwendig?
+		//Evtl. return Werte falsch
+		if(((Website) A).isXML()==this.isXML()){
+			return 0;
+		}
+		else if(((Website) A).isXML()&&this.isXML()==false){
+			return 1;
+		}
+		else{
+			return -1;
+		}
+		
+	}
+
+	@Override
+	public long getDelay(TimeUnit arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	public void setTimeStamp() {
@@ -108,27 +132,12 @@ public class Website implements Delayed{
 		this.XML = xml;
 	}
 
-	//Ingestion - DelayedQueue necessary Methods for "implements Delayed"
-	@Override
-	public int compareTo(Delayed A) {
-		//Cast wirklich notwendig?
-		//Evtl. return Werte falsch
-		if(((Website) A).isXML()==this.isXML()){
-			return 0;
-		}
-		else if(((Website) A).isXML()&&this.isXML()==false){
-			return 1;
-		}
-		else{
-			return -1;
-		}
-		
+	public String getFilePath() {
+		return filePath;
 	}
 
-	@Override
-	public long getDelay(TimeUnit arg0) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
 }
