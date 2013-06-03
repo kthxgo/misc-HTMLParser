@@ -131,14 +131,6 @@ public class HTMLParser {
 			case "<div>":
 				return parseFor(currentElement, tag, "div", tempText);
 				
-			case "</div>":
-				position++;
-				break;
-//				int closerLocation = tempText.indexOf("</div>");
-//				position++;
-//				parseNext(currentElement, tempText.substring(closerLocation));
-//				break;
-				
 			case "<table>":
 				return parseFor(currentElement, tag, "table", tempText);
 				
@@ -165,7 +157,7 @@ public class HTMLParser {
 			}
 		}
 		
-		return "";
+		return tempText;
 	}
 	
 	
@@ -189,11 +181,10 @@ public class HTMLParser {
 				front = tempText.substring(0, openerLocation);
 			}
 			
-				//TODO noch leere wegmachen
-				Element element = new Element("text");
-				Attribute att = new Attribute("value", front);
-				element.setAttribute(att);
-				currentElement.addContent(element);
+			Element element = new Element("text");
+			Attribute att = new Attribute("value", front);
+			element.setAttribute(att);
+			currentElement.addContent(element);
 			
 		}
 		
@@ -208,31 +199,26 @@ public class HTMLParser {
 			
 			String text = tempText.substring(openerLocation + tagName.length()+2, closerLocation);
 			
-				//TODO noch leere wegmachen
-//				System.out.println("make text with: " + text);
-				Element textElement = new Element("text");
-				Attribute textAttribute = new Attribute("value", text);
-				textElement.setAttribute(textAttribute);
-				newElement.addContent(textElement);
-			
+			Element textElement = new Element("text");
+			Attribute textAttribute = new Attribute("value", text);
+			textElement.setAttribute(textAttribute);
+			newElement.addContent(textElement);
 			
 			
 			position++;
 			
 			newTempText = tempText.substring(closerLocation + tagName.length()+3);
-			String tmp = parseNext(currentElement, newTempText);
-//			return htmlText.length()-newTempText.length()-8+; //-8 because of surrounding html-tag
-			return tmp;
+			String nextText = parseNext(currentElement, newTempText);
+			return nextText;
 		} else {
 			newTempText = tempText.substring(openerLocation + tagName.length()+2);
-			String tmp = parseNext(newElement, newTempText);
+			String nextText = parseNext(newElement, newTempText);
 			
 			position++;
 			
-			// pos edited
-			tmp = parseNext(currentElement, tmp);
+			nextText = parseNext(currentElement, nextText);
 			
-			return tmp;
+			return nextText;
 		}
 	}
 	

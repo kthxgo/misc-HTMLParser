@@ -11,9 +11,22 @@ public class HTMLNormalizer {
 		int posCloser;
 		int imageCounter = 0;
 		
-//		text = text.replace('\n', '\0');
-//		text = text.replace('\t', '\0');
-//		text = text.replace('\r', '\0');
+		//normal
+		text = text.replace("&uuml;", "ue");
+		text = text.replace("&Uuml;", "Ue");
+		text = text.replace("&auml;", "ae");
+		text = text.replace("&Auml;", "Ae");
+		text = text.replace("&ouml;", "oe");
+		text = text.replace("&Ouml;", "Oe");
+		text = text.replace("&szlig;", "ss");
+		
+		//advanced
+		text = text.replace("ü", "ue");
+		text = text.replace("ä", "ae");
+		text = text.replace("ö", "oe");
+		text = text.replace("ß", "ss");
+		
+		
 		
 		while(text.indexOf("<")>=0) {
 			posOpener = text.indexOf("<");
