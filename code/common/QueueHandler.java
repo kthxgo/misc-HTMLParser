@@ -65,7 +65,7 @@ public class QueueHandler {
 			try {
 				out = new FileOutputStream(file);
 				ObjectOutputStream obj_out = new ObjectOutputStream(out);
-				obj_out.writeObject(crawlerInputQueue);
+				obj_out.writeObject(crawlerInput);
 				obj_out.close();
 				log.info("CrawlerInputQueue saved to file");
 			} catch (FileNotFoundException e) {
@@ -122,7 +122,7 @@ public class QueueHandler {
 			try {
 				out = new FileOutputStream(file);
 				ObjectOutputStream obj_out = new ObjectOutputStream(out);
-				obj_out.writeObject(crawlerOutputQueue);
+				obj_out.writeObject(crawlerOutput);
 				obj_out.close();
 				log.info("CrawlerOutputQueue saved to file");
 			} catch (FileNotFoundException e) {
@@ -179,7 +179,7 @@ public class QueueHandler {
 			try {
 				out = new FileOutputStream(file);
 				ObjectOutputStream obj_out = new ObjectOutputStream(out);
-				obj_out.writeObject(ingestionInputQueue);
+				obj_out.writeObject(ingestionInput);
 				obj_out.close();
 				log.info("IngestionInputQueue saved to file");
 			} catch (FileNotFoundException e) {
